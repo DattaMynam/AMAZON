@@ -2,6 +2,8 @@
 target/
 bin/
 build/
+src/main/resources/application.properties
+
 
 # Keep Maven Wrapper JAR
 !.mvn/wrapper/maven-wrapper.jar
