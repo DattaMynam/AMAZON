@@ -1,0 +1,28 @@
+# === Build Output ===
+target/
+bin/
+build/
+
+# Keep Maven Wrapper JAR
+!.mvn/wrapper/maven-wrapper.jar
+
+# === Eclipse ===
+.classpath
+.project
+.settings/
+.factorypath
+
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.iws
+
+# === VS Code ===
+.vscode/
+
+# === Logs ===
+*.log
+
+# === OS Trash ===
+.DS_Store
+Thumbs.db
