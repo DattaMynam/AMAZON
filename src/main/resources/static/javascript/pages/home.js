@@ -75,7 +75,6 @@ function viewProduct(id) {
   window.location.href = `productDetails.html?id=${id}`;
 }
 
-// new
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("side-menu");
 
@@ -88,4 +87,32 @@ document.addEventListener("click", (e) => {
   if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
     menu.style.right = "-250px";
   }
+});
+
+
+
+const logoutBtn = document.getElementById("logout-btn");
+
+logoutBtn?.addEventListener("click", async (e) => {
+    e.preventDefault(); // prevent default link navigation
+
+    try {
+        const res = await fetch(`${BASE_URL}/customer/logout`, {
+            method: "POST",
+            credentials: "include", 
+        });
+
+        if (!res.ok) throw new Error("Logout failed");
+
+        localStorage.removeItem("customer");
+		localStorage.removeItem("customerId");
+
+		const message = await res.text();
+		alert(message);    
+
+        window.location.href = "index.html";
+    } catch (err) {
+        console.error(err);
+        alert("Logout failed. Try again.");
+    }
 });

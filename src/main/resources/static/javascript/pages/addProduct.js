@@ -1,5 +1,3 @@
-import { addProduct } from "../api/productApi.js";
-
 document.getElementById("addProductForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 

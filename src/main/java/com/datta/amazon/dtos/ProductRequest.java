@@ -1,12 +1,6 @@
-package com.datta.amazon.model;
+package com.datta.amazon.dtos;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -15,34 +9,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductRequest {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_seq")
-	@SequenceGenerator(name = "products_seq", sequenceName = "products_seq", allocationSize = 1)
-	private Long id;
-	
-	@Setter
 	@NotBlank(message = "Name cannot be empty")
 	@Column(nullable = false, unique = true)
 	private String name;
-	
-	@Setter
+
 	@Column(length = 1000)
 	private String description;
-	
-	@Setter
 	private String imageUrl;
-	
-	@Setter
+
 	@Positive(message = "Price must be greater than zero")
 	private Double price;
-	
-	@Setter
 	private Integer stockQuantity;
 
 }

@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,12 +27,21 @@ public class OrderItem {
 	@SequenceGenerator(name = "order_item_seq", sequenceName = "order_item_seq", allocationSize = 1)
 	private Long id;
 
+	@Setter
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Orders order;
-	private Long productId;
-	private String productName;
-	private Integer quantity;
-	private Double price;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Orders order;
+
+	@Setter
+    private Long productId;
+	
+	@Setter
+    private String productName;
+
+	@Setter
+    private Integer quantity;
+	
+	@Setter
+    private Double price;
 }

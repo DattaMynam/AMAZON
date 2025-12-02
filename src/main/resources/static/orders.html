@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main>
+    <h2>My Orders</h2>
+    <div id="orders-container"></div>
+  </main>
+
+  <script src="javascript/config.js"></script>
+  <script src="javascript/utils/http.js"></script>
+
+  <script>
+    // Helper to fetch the logged-in user
+    async function getCurrentUser() {
+      try {
+        return await httpGet(`${BASE_URL}/customer/me`);
+      } catch {
+        return null;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const customer = await getCurrentUser();
+
+      if (!customer) {
+        // User is not logged in, redirect to login page
+        alert("You must log in first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        // Fetch orders using the session (credentials included)
+        const orders = await httpGet(`${BASE_URL}/orders/myorders`);
+        renderOrders(orders);
+      } catch (err) {
+        console.error("Failed to load orders:", err);
+        document.getElementById("orders-container").innerHTML =
+          "<p>Could not load orders. Please refresh or log in again.</p>";
+      }
+    });
+
+    function renderOrders(orders) {
+      if (!orders || orders.length === 0) {
+        document.getElementById("orders-container").innerHTML =
+          "<p>No orders found.</p>";
+        return;
+      }
+
+      const container = document.getElementById("orders-container");
+      container.innerHTML = orders
+        .map(order => {
+          const itemsHtml = order.items
+            ?.map(item => `
+              <li>
+                <img src="${item.imageUrl}" width="60" />
+                ${item.name} x ${item.quantity} = ₹${item.totalPrice}
+              </li>
+            `)
+            .join("") || "";
+
+          return `
+            <div class="order-card">
+              <h3>Order #${order.id}</h3>
+              <p>Status: ${order.status}</p>
+              <p>Total: ₹${order.totalAmount}</p>
+              <ul>${itemsHtml}</ul>
+              <p>Placed on: ${new Date(order.createdAt).toLocaleString()}</p>
+            </div>
+          `;
+        })
+        .join("");
+    }
+  </script>
+</body>
+</html>

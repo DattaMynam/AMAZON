@@ -1,5 +1,7 @@
 package com.datta.amazon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -26,15 +27,21 @@ public class Customer {
 	@SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", allocationSize = 1)
 	private Long id;
 
+	@Setter
 	@Column(nullable = false, unique = true)
 	private String email;
 
+	@Setter
 	@NotBlank(message = "Name cannot be empty")
 	@Column(nullable = false)
 	private String name;
 
+	@Setter
+	@JsonIgnore
 	@NotBlank(message = "Password cannot be empty")
 	@Column(nullable = false)
 	private String password;
 
 }
+
+

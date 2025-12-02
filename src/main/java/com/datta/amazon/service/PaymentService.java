@@ -4,7 +4,11 @@ import java.util.Map;
 
 public interface PaymentService {
 
-	Map<String, Object> createPayment(Long orderId, Double amount);
+	Map<String, Object> createPayment(Long orderId);
 
-	boolean verifyPayment(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature);
+	boolean verifyPayment(String orderId, String paymentId, String signature);
+
+	void processSuccessfulPayment(String razorpayOrderId, String razorpayPaymentId);
+
+
 }

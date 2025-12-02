@@ -23,15 +23,3 @@ public class CryptoUtil {
 	}
 }
 
-//public boolean verifyPayment(String orderId, String paymentId, String signature) {
-//    String secret = config.getSecret();
-//
-//    try {
-//        String payload = orderId + "|" + paymentId;
-//        String expected = Utils.calculateRFC2104HMAC(payload, secret);
-//
-//        return expected.equals(signature);
-//    } catch (Exception e) {
-//        return false;
-//    }
-//}

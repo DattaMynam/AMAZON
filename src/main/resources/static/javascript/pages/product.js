@@ -5,7 +5,7 @@ if (!id) {
   console.error("Product ID missing in URL");
 }
 
-fetch(`http://localhost:8081/api/products/${id}`)
+fetch(`${BASE_URL}/products/${id}`)
   .then((res) => res.json())
   .then((p) => {
     document.getElementById("product-details").innerHTML = `
@@ -48,7 +48,7 @@ function addToCart(productId) {
 
   const quantity = parseInt(document.getElementById("qty-input").value);
 
-  fetch("http://localhost:8081/api/cart/add", {
+  fetch(`${BASE_URL}/cart/add`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

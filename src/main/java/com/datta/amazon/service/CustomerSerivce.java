@@ -8,4 +8,6 @@ public interface CustomerSerivce {
 
 	Customer login(String email, String password);
 
+	void deleteCustomer(Long customerId);
+
 }
